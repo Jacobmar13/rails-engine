@@ -5,9 +5,7 @@ class MerchantSerializer
         {
           id: merchant.id.to_s,
           type: 'merchant',
-          attributes: {
-            name: merchant.name
-          }
+          attributes: { name: merchant.name }
         }
       end
     }
