@@ -13,6 +13,7 @@ AllCops:
     - 'spec/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
+    - 'app/serializers/**/*'
     - './*'
 
 Style/FrozenStringLiteralComment:
