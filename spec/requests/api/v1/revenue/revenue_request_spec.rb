@@ -3,15 +3,30 @@ require 'rails_helper'
 RSpec.describe 'Revenue API' do
   describe 'merchants request' do
     it 'returns top ten merchants by revenue' do
-      merchants = create_list(:merchant, 20)
+      invoice_items = create_list(:invoice_item, 20)
 
-      get '/api/v1/revenue/merchants'
+      invoice_items.each do |invoice_item|
+        create(:transaction, invoice: invoice_item.invoice)
+      end
 
+      get '/api/v1/revenue/merchants?quantity=10'
+      # require 'pry';binding.pry
       expect(response).to be_successful
 
       merchants_returned = JSON.parse(response.body, symbolize_names: true)[:data]
 
       expect(merchants_returned.count).to eq(10)
+    end
+    it 'gives an error when there is no quantity' do
+      invoice_items = create_list(:invoice_item, 20)
+
+      invoice_items.each do |invoice_item|
+        create(:transaction, invoice: invoice_item.invoice)
+      end
+
+      get '/api/v1/revenue/merchants'
+      # require 'pry';binding.pry
+      expect(response).to be_a_bad_request
     end
   end
 end
