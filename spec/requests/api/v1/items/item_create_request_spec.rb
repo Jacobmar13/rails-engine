@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Item Create API" do
-  describe 'basic api post' do
+  describe 'basic api post request' do
     it "can create a new item" do
       merchant = create(:merchant)
       item_params = ({
