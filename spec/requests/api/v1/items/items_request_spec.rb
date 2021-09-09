@@ -20,12 +20,10 @@ describe "Items API" do
         expect(item).to have_key(:type)
         expect(item[:type]).to be_a(String)
 
-        items[:attributes].each do |attribute|
-          expect(attribute).to have_key(:name)
-          expect(attribute).to have_key(:description)
-          expect(attribute).to have_key(:unit_price)
-          expect(attribute).to have_key(:merchant_id)
-        end
+        expect(item[:attributes]).to have_key(:name)
+        expect(item[:attributes]).to have_key(:description)
+        expect(item[:attributes]).to have_key(:unit_price)
+        expect(item[:attributes]).to have_key(:merchant_id)
       end
     end
   end
