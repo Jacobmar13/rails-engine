@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       namespace :items do
         get '/find_all', to: 'search#find_all'
       end
+      namespace :revenue do
+        get '/merchants', to: 'merchants#top_earners'
+      end
       resources :merchants, only: [:index, :show] do
         get '/items', to: 'merchants/items#index'
       end
