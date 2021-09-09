@@ -25,7 +25,7 @@ class Api::V1::ItemsController < ApplicationController
     if item.update(item_params)
       render json: ItemSerializer.new(item)
     else
-      render status: :bad_request
+      render json: ErrorSerializer.error(item.errors.full_messages), status: :bad_request
     end
   end
 
