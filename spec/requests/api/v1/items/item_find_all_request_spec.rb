@@ -5,7 +5,7 @@ describe "Items Find All API" do
     it 'finds item that matches name' do
       item = create(:item)
 
-      get "/api/v1/items/find?name=#{item.name}"
+      get "/api/v1/items/find_all?name=#{item.name}"
 
       expect(response).to be_successful
 
