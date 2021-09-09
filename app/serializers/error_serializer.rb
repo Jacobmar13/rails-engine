@@ -7,4 +7,9 @@ class ErrorSerializer
       }
     }
   end
+  def self.error
+    {
+      error: 'nil'
+    }
+  end
 end
