@@ -3,6 +3,6 @@ FactoryBot.define do
     name { Faker::Commerce.unique.product_name }
     description { Faker::Marketing.buzzwords }
     unit_price { Faker::Commerce.price }
-    association :merchant
+    merchant
   end
 end
