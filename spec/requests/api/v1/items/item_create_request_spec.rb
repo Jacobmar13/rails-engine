@@ -8,7 +8,7 @@ describe "Item Create API" do
         name: 'Electric Boogaloo',
         description: 'Something something darkness..',
         unit_price: 24.95,
-        merchant_id: "#{merchant.id}"
+        merchant_id: merchant.id
       })
       headers = {"CONTENT_TYPE" => "application/json"}
 
