@@ -4,4 +4,8 @@ class Item < ApplicationRecord
   validates_associated :merchant
 
   self.per_page = 20
+
+  def self.find_items(query)
+    where("lower(name) LIKE lower(?)", "%#{query}%" )
+  end
 end
