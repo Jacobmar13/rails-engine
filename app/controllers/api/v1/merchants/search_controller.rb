@@ -9,7 +9,12 @@ class Api::V1::Merchants::SearchController < ApplicationController
   end
 
   def top_items_sold
-    merchants = Merchant.top_sold(params[:quantity])
-    render json: MerchantsSoldSerializer.new(merchants)
+    if params[:quantity]
+      merchants = Merchant.top_sold(params[:quantity])
+      render json: MerchantsSoldSerializer.new(merchants)
+    else
+      error = 'Quantity param needs to be passed'
+      render json: ErrorSerializer.error(error), status: :bad_request
+    end
   end
 end
