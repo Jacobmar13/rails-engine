@@ -25,7 +25,7 @@ class Merchant < ApplicationRecord
     .select('merchants.*')
     .select('sum(invoice_items.quantity) AS count')
     .group(:id)
-    .order(count: :desc)
+    .order('count DESC')
     .limit(quantity)
   end
 
