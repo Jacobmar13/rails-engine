@@ -47,11 +47,8 @@ RSpec.describe 'Revenue API' do
       expect(merchant_revenue).to have_key(:type)
       expect(merchant_revenue[:type]).to be_a(String)
 
-      expect(merchant_revenue[:attributes]).to have_key(:name)
-      expect(merchant_revenue[:attributes][:name]).to be_a(String)
-
       expect(merchant_revenue[:attributes]).to have_key(:revenue)
-      expect(merchant_revenue[:attributes][:revenue]).to be_a(String)
+      expect(merchant_revenue[:attributes][:revenue]).to be_a(Float)
     end
   end
 end
