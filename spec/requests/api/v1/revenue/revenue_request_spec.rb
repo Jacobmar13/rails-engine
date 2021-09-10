@@ -10,7 +10,7 @@ RSpec.describe 'Revenue API' do
       end
 
       get '/api/v1/revenue/merchants?quantity=10'
-      # require 'pry';binding.pry
+
       expect(response).to be_successful
 
       merchants_returned = JSON.parse(response.body, symbolize_names: true)[:data]
@@ -27,6 +27,17 @@ RSpec.describe 'Revenue API' do
       get '/api/v1/revenue/merchants'
       # require 'pry';binding.pry
       expect(response).to be_a_bad_request
+    end
+  end
+  describe 'merchant revenue request' do
+    it 'returns a single merchants revenue' do
+      invoice_item = create(:invoice_item)
+      transaction = create(:transaction, invoice: invoice_item.invoice)
+      merchant = Merchant.last
+
+      get "/api/v1/revenue/merchants/#{merchant.id}"
+
+      expect(response).to be_successful
     end
   end
 end
