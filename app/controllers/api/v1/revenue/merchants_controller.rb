@@ -1,6 +1,6 @@
 class Api::V1::Revenue::MerchantsController < ApplicationController
   def top_earners
-    if params[:quantity].to_i > 0
+    if params[:quantity].to_i.positive?
       merchants = Merchant.top_merchants(params[:quantity])
       render json: MerchantsRevenueSerializer.new(merchants)
     else
