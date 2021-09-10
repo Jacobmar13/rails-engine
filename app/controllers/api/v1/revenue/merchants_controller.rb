@@ -8,4 +8,8 @@ class Api::V1::Revenue::MerchantsController < ApplicationController
       render json: ErrorSerializer.error(error), status: :bad_request
     end
   end
+
+  def show
+    
+  end
 end
