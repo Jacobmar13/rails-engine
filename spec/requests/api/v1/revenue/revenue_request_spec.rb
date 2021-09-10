@@ -38,6 +38,20 @@ RSpec.describe 'Revenue API' do
       get "/api/v1/revenue/merchants/#{merchant.id}"
 
       expect(response).to be_successful
+
+      merchant_revenue = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      expect(merchant_revenue).to have_key(:id)
+      expect(merchant_revenue[:id]).to be_an(String)
+
+      expect(merchant_revenue).to have_key(:type)
+      expect(merchant_revenue[:type]).to be_a(String)
+
+      expect(merchant_revenue[:attributes]).to have_key(:name)
+      expect(merchant_revenue[:attributes][:name]).to be_a(String)
+
+      expect(merchant_revenue[:attributes]).to have_key(:revenue)
+      expect(merchant_revenue[:attributes][:revenue]).to be_a(String)
     end
   end
 end
