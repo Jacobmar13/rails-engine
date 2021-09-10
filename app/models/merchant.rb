@@ -23,9 +23,9 @@ class Merchant < ApplicationRecord
     joins(items: {invoice_items: {invoice: :transactions}})
     .where(transactions: { result: :success})
     .select('merchants.*')
-    .select('sum(invoice_items.quantity) AS sold')
+    .select('sum(invoice_items.quantity) AS count')
     .group(:id)
-    .order(sold: :desc)
+    .order(count: :desc)
     .limit(quantity)
   end
 
