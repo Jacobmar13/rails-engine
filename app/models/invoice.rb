@@ -6,10 +6,8 @@ class Invoice < ApplicationRecord
 
   def self.total_revenue
     joins(:transactions, :invoice_items)
-    .where(transactions: { result: :success})
-    .select("sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
-    .group('invoices.id').sum do |revenue|
-      revenue.revenue
-    end
+      .where(transactions: { result: :success })
+      .select('sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+      .group('invoices.id').sum(&:revenue)
   end
 end

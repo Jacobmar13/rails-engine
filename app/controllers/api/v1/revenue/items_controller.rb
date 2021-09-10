@@ -8,8 +8,7 @@ class Api::V1::Revenue::ItemsController < ApplicationController
       items = Item.top_items(params[:quantity])
       render json: ItemsRevenueSerializer.new(items)
     else
-      items = Item.top_items
-      render json: ItemsRevenueSerializer.new(items)
+      render json: ItemsRevenueSerializer.new(Item.top_items)
     end
   end
 end
