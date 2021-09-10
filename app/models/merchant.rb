@@ -11,10 +11,21 @@ class Merchant < ApplicationRecord
 
   def self.top_merchants(quantity)
     joins(items: {invoice_items: {invoice: :transactions}})
-    .select("merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
+    .select('merchants.*')
+    .select('sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
     .group(:id)
     .where(transactions: { result: :success})
     .order(revenue: :desc)
+    .limit(quantity)
+  end
+
+  def self.top_sold(quantity)
+    joins(items: {invoice_items: {invoice: :transactions}})
+    .where(transactions: { result: :success})
+    .select('merchants.*')
+    .select('sum(invoice_items.quantity) AS sold')
+    .group(:id)
+    .order(sold: :desc)
     .limit(quantity)
   end
 
