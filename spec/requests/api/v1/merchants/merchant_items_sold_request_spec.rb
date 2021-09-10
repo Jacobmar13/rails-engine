@@ -52,5 +52,10 @@ describe "Merchant by Items Sold API" do
 
       expect(merchants_returned.first[:attributes][:name]).to eq(@merchant2.name)
     end
+    it "gives error if no quantity param given" do
+      get "/api/v1/merchants/most_items"
+
+      expect(response).to be_a_bad_request
+    end
   end
 end
