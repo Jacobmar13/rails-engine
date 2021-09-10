@@ -4,7 +4,7 @@ class Api::V1::Revenue::MerchantsController < ApplicationController
       merchants = Merchant.top_merchants(params[:quantity])
       render json: MerchantsRevenueSerializer.new(merchants)
     else
-      error = 'Error, quantity param is missing'
+      error = 'Error, quantity param cannot be blank'
       render json: ErrorSerializer.error(error), status: :bad_request
     end
   end
