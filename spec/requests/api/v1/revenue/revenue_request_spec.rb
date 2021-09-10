@@ -51,4 +51,21 @@ RSpec.describe 'Revenue API' do
       expect(merchant_revenue[:attributes][:revenue]).to be_a(Float)
     end
   end
+  describe 'items revenue request' do
+    it 'returns top items by revenue' do
+      invoice_items = create_list(:invoice_item, 20)
+
+      invoice_items.each do |invoice_item|
+        create(:transaction, invoice: invoice_item.invoice)
+      end
+
+      get '/api/v1/revenue/items'
+
+      expect(response).to be_successful
+
+      items_returned = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      expect(items_returned.count).to eq(10)
+    end
+  end
 end
