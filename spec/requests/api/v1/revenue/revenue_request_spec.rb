@@ -52,7 +52,7 @@ RSpec.describe 'Revenue API' do
     end
   end
   describe 'items revenue request' do
-    it 'returns top items by revenue' do
+    it 'returns by default top 10 items by revenue' do
       invoice_items = create_list(:invoice_item, 20)
 
       invoice_items.each do |invoice_item|
@@ -66,6 +66,32 @@ RSpec.describe 'Revenue API' do
       items_returned = JSON.parse(response.body, symbolize_names: true)[:data]
 
       expect(items_returned.count).to eq(10)
+    end
+    it 'returns quantity of items with quantity params' do
+      invoice_items = create_list(:invoice_item, 20)
+
+      invoice_items.each do |invoice_item|
+        create(:transaction, invoice: invoice_item.invoice)
+      end
+
+      get '/api/v1/revenue/items?quantity=5'
+
+      expect(response).to be_successful
+
+      items_returned = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      expect(items_returned.count).to eq(5)
+    end
+    it 'returns error page with non positive number quantity params' do
+      invoice_items = create_list(:invoice_item, 20)
+
+      invoice_items.each do |invoice_item|
+        create(:transaction, invoice: invoice_item.invoice)
+      end
+
+      get '/api/v1/revenue/items?quantity=abba'
+
+      expect(response).to be_a_bad_request
     end
   end
 end
