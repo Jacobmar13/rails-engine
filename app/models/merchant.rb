@@ -1,4 +1,5 @@
 class Merchant < ApplicationRecord
+  attr_reader :revenue
   has_many :invoices, dependent: nil
   has_many :items, dependent: nil
 
@@ -15,5 +16,9 @@ class Merchant < ApplicationRecord
     .where(transactions: { result: :success})
     .order(revenue: :desc)
     .limit(quantity)
+  end
+
+  def revenue
+    invoices.total_revenue
   end
 end
