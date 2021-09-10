@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Revenue API' do
-  describe 'merchants request' do
+  describe 'merchants revenue request' do
     it 'returns top ten merchants by revenue' do
       invoice_items = create_list(:invoice_item, 20)
 
