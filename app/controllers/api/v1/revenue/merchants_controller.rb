@@ -1,10 +1,10 @@
 class Api::V1::Revenue::MerchantsController < ApplicationController
   def top_earners
-    if params[:quantity]
+    if params[:quantity].to_i > 0
       merchants = Merchant.top_merchants(params[:quantity])
       render json: MerchantsRevenueSerializer.new(merchants)
     else
-      error = 'Error, quantity param cannot be blank'
+      error = 'Error, quantity param must be positive integer'
       render json: ErrorSerializer.error(error), status: :bad_request
     end
   end
